@@ -1,0 +1,83 @@
+.movie-info-card {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 85vw;
+    max-height: 65vh;
+    padding: 10px;
+    box-sizing: border-box;
+    
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: rgb(235, 235, 235);
+    z-index: 10;
+    .movie-info-card__title {
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        .movie-info-card__name {
+            width: 90%;
+            
+            margin-bottom: 8px;
+        }
+        .movie-info-card__btn {
+            cursor: pointer;
+            padding: 0;
+            border: 1px solid black;
+            border-radius: 4px;
+            background-color: rgb(252, 97, 97);
+            height: 16px;
+            width: 16px;
+            padding-left: 5px;
+            padding-bottom: 5px;
+            p {
+                margin: 0;
+                color: white;
+            }
+            
+        }
+        
+    }
+    .movie-info-card__description {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        margin-bottom: 8px;
+        
+
+        .movie-info-card__poster {
+            height: 15vh;
+            display: flex;
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+        }
+        .movie-info-card__info {
+            margin-top: 8px;
+            height: 25vh;
+            overflow: scroll;
+
+            p {
+                margin-top: 0;
+                font-weight: bold;
+                span {
+                    opacity: 0.75;
+                    font-weight: lighter;
+                }
+            }
+        }
+    }
+    .movie-info-card__fav-btn {
+        color: black;
+
+        .movie-info-card__fav-icon {
+            color: red;
+        }
+    }
+    
+}

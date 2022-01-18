@@ -1,0 +1,20 @@
+.movie-page {
+    position: relative;
+    padding: 5rem 1rem 1rem;
+    z-index: 2;
+
+    .search-form {
+        margin: auto;
+        max-width: 800px;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
+        background-color: white;
+    }
+
+    .movie-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}
