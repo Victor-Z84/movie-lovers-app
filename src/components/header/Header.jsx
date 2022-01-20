@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.scss";
 
-import DrawerMenu from "./drawerMenu/DrawerMenu";
+import DrawerMenu from "../drawerMenu/DrawerMenu";
 import logo from "../../icons/logo.png";
 import ava from "../../icons/ava.jpg"
 import Avatar from "@mui/material/Avatar";
