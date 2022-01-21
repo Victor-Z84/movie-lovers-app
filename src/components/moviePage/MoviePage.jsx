@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBox from '../searchBox/SearchBox';
 import MovieCard from '../movieCard/MovieCard';
+import Loader from '../loader/Loader';
 import MovieInfoCard from '../movieInfoCard/MovieInfoCard';
-
+import MoviePagination from '../pagination/MoviePagination';
 
 import "./MoviePage.scss";
-import { useState } from 'react';
+import axios from 'axios';
+
+
+export const API_KEY = 'e6f72b18';
 
 function MoviePage() {
 
-  // состояние для списка с фильмами
-  const [searchQuery, updateSearchQuery] = useState();
+  // состояние для строки ввода данных
+  const [searchValue, setSearchValue] = useState("");  
 
-  // состояния для модального окна с подробной информацией
-  const [selectedMovie, onMovieSelect] = useState();
-
-  // статичные данные с фильмами, тут будет API
-  const movies = [
-    
+  // состояние для страницы с фильмами
+  const [movies, setMovies] = useState([
     {
       "Title": "The Gentlemen",
       "Year": "2019",
@@ -33,11 +33,11 @@ function MoviePage() {
       "Poster": "https://m.media-amazon.com/images/M/MV5BMTk2MjcxNjMzN15BMl5BanBnXkFtZTgwMTE3OTEwNjE@._V1_SX300.jpg"
     },
     {
-      "Title": "One Flew Over the Cuckoo's Nest",
-      "Year": "1975",
-      "imdbID": "tt0073486",
+      "Title": "Bohemian Rhapsody",
+      "Year": "2018",
+      "imdbID": "tt1727824",
       "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BZjA0OWVhOTAtYWQxNi00YzNhLWI4ZjYtNjFjZTEyYjJlNDVlL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTA2NDc3Njg5NDVeQTJeQWpwZ15BbWU4MDc1NDcxNTUz._V1_SX300.jpg"
     },
     {
       "Title": "Sherlock",
@@ -46,108 +46,113 @@ function MoviePage() {
       "Type": "series",
       "Poster": "https://m.media-amazon.com/images/M/MV5BMWY3NTljMjEtYzRiMi00NWM2LTkzNjItZTVmZjE0MTdjMjJhL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNTQ4NTc5OTU@._V1_SX300.jpg"
     },
-    {
-      "Title": "Chernobyl",
-      "Year": "2019",
-      "imdbID": "tt7366338",
-      "Type": "series",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BZGQ2YmMxZmEtYjI5OS00NzlkLTlkNTEtYWMyMzkyMzc2MDU5XkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_SX300.jpg"
-    },
-    {
-        "Title": "Sex & Drugs & Rock & Roll",
-        "Year": "2010",
-        "imdbID": "tt1393020",
-        "Type": "movie",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BMjA4NjI1MzAyMF5BMl5BanBnXkFtZTcwMTEyNzUyNA@@._V1_SX300.jpg"
-    },
-    {
-      "Title": "The Intouchables",
-      "Year": "2011",
-      "imdbID": "tt1675434",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTYxNDA3MDQwNl5BMl5BanBnXkFtZTcwNTU4Mzc1Nw@@._V1_SX300.jpg"
-    },
-    {
-      "Title": "Snatch",
-      "Year": "2000",
-      "imdbID": "tt0208092",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTA2NDYxOGYtYjU1Mi00Y2QzLTgxMTQtMWI1MGI0ZGQ5MmU4XkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_SX300.jpg"
-    },
-    {
-      "Title": "Bohemian Rhapsody",
-      "Year": "2018",
-      "imdbID": "tt1727824",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTA2NDc3Njg5NDVeQTJeQWpwZ15BbWU4MDc1NDcxNTUz._V1_SX300.jpg"
-    },
-    {
-      "Title": "Unbroken",
-      "Year": "2014",
-      "imdbID": "tt1809398",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTY3ODg2OTgyOF5BMl5BanBnXkFtZTgwODk1OTAwMzE@._V1_SX300.jpg"
-    },
-  ];
+  ]);
 
-  const selectedMovies = [
-    {
-        "Title": "The Gentlemen",
-        "Year": "2019",
-        "Rated": "R",
-        "Released": "24 Jan 2020",
-        "Runtime": "113 min",
-        "Genre": "Action, Comedy, Crime",
-        "Director": "Guy Ritchie",
-        "Writer": "Guy Ritchie, Ivan Atkinson, Marn Davies",
-        "Actors": "Matthew McConaughey, Charlie Hunnam, Michelle Dockery",
-        "Plot": "An American expat tries to sell off his highly profitable marijuana empire in London, triggering plots, schemes, bribery and blackmail in an attempt to steal his domain out from under him.",
-        "Language": "English, Russian, Spanish, Chinese",
-        "Country": "United Kingdom, United States",
-        "Awards": "1 win & 4 nominations",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BMTlkMmVmYjktYTc2NC00ZGZjLWEyOWUtMjc2MDMwMjQwOTA5XkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_SX300.jpg",
-        "Ratings": [
-            {
-                "Source": "Internet Movie Database",
-                "Value": "7.8/10"
-            },
-            {
-                "Source": "Metacritic",
-                "Value": "51/100"
-            }
-        ],
-        "Metascore": "51",
-        "imdbRating": "7.8",
-        "imdbVotes": "290,203",
-        "imdbID": "tt8367814",
-        "Type": "movie",
-        "DVD": "N/A",
-        "BoxOffice": "$36,471,795",
-        "Production": "N/A",
-        "Website": "N/A",
-        "Response": "True"
+  //состояние для Loader
+  const [isLoading, setIsLoading] = useState(true);
+
+  //состояние для Error
+  const [isError, setIsError] = useState(false);
+
+
+  //состояние для компонента MoviePagination
+  const [page, setPage] = useState(1);
+
+  //состояние количества страниц
+  const [numberOfPages, setNumberOfPages] = useState();
+
+  // состояния для модального окна с подробной информацией
+  const [selectedMovie, onMovieSelect] = useState();
+
+  // это рабочий код получение запросов динамически, нативным способом:
+  const getMovieRequest = async (searchValue) => {
+    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}&page=${page}`;
+
+    const response = await fetch(url);
+    const responseJson = await response.json();
+
+    if (responseJson.Search) {
+      setMovies(responseJson.Search);
+      setNumberOfPages(Number(responseJson.totalResults));
     }
+  };
 
-]
+  useEffect(() => {
+    getMovieRequest(searchValue, page);
+  });
+
+
+
+  // попытка получения данных с API с помощью axios
+
+  // useEffect(() => {
+
+  //   async function getMovieRequest () {
+      
+  //     try {
+  //       const getMovies = (searchValue) => axios.get(`https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}&page=${page}`);
+  //       const response = await getMovies(); 
+  //       const responseJson = await response.json();
+  //       setMovies(responseJson.Search);
+  //       setNumberOfPages(Number(responseJson.totalResults));
+  //     } catch (error) {
+  //       setIsError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   getMovieRequest(searchValue, page);
+  // }, [searchValue, page]);
 
   return (
-    <div className="movie-page">
+    <>
+      <div className="movie-page">
     
-      <div className='search-form'>
-        <SearchBox/>
-      </div>
-      
-      <div className="movie-list">
-        {movies.map((movie) => 
-          <MovieCard key={movie.imdbID} movie={movie} onMovieSelect={onMovieSelect}/>
-        )}
-      </div>
-      {selectedMovie && <MovieInfoCard 
+        <div className='search-form'>
+          <SearchBox
+            searchValue={searchValue}
+            setSearchValue={setSearchValue} 
+          />
+        </div>
+
+        <div className="movie-page__invation">
+          <span>...or see our collection</span>
+        </div>
         
-        selectedMovie={selectedMovie}
-        onMovieSelect={onMovieSelect}
-      />}
-    </div>
+        <div className="movie-list">
+
+          {/* это НЕрабочий, попытка с axios */}
+
+          {/* {isLoading && <Loader/>}
+          {isError && 
+            <span className='movie-page__error'>
+              Error :-(
+            </span>
+          }
+          {!isLoading && !isError && 
+            movies.map((movie) => 
+                  <MovieCard key={movie.imdbID} movie={movie} onMovieSelect={onMovieSelect}/>
+                )
+          } */}
+
+
+          {/* это рабочий код с нативным запросом данных с API */}
+          {movies?.map((movie) => 
+            <MovieCard key={movie.imdbID} movie={movie} onMovieSelect={onMovieSelect}/>
+          )}
+        </div>
+
+        {selectedMovie && <MovieInfoCard 
+          selectedMovie={selectedMovie}
+          onMovieSelect={onMovieSelect}
+        />}
+      </div>
+      <MoviePagination
+        setPage={setPage}
+        pageNumber={numberOfPages}
+      />
+    </>
+    
   );
 }
 

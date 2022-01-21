@@ -2,6 +2,7 @@
     position: relative;
     padding: 5rem 1rem 1rem;
     z-index: 2;
+    background-color: #183755;
 
     .search-form {
         margin: auto;
@@ -9,6 +10,16 @@
         padding: 0.3rem;
         border-radius: 0.5rem;
         background-color: white;
+        
+    }
+
+    .movie-page__invation {
+        color: white;
+        font-size: 1.5rem;
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+        
     }
 
     .movie-list {

@@ -1,0 +1,31 @@
+.movie-pag-container {
+    display:flex;
+    justify-content: center;
+    
+
+    .movie-pag-container__root{
+        position: fixed;
+        bottom: 0;
+        z-index: 15;
+        background-color: #183755;
+        padding: 10px 80px;
+        border-top: 1px solid white;
+        width: 100%;
+
+        li {
+            // border: 1px solid rgb(255 255 255 / 23%);
+            button {
+                color: rgb(255 255 255 / 87%);
+            }
+            
+        }
+
+        .movie-pag__pag-element {
+            display: flex;
+            justify-content: center;
+            .MuiPagination-text {
+                color: white;
+            }
+        }
+    }
+}
