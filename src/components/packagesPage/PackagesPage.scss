@@ -1,0 +1,13 @@
+.packages-page {
+    max-width: 1200px;
+    margin: auto;
+    box-sizing: border-box;
+    background-color: #183755;
+    padding: 6rem 1rem 6rem;
+
+    .packages-page__text, .packages-page__invitation {
+        color: white;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}

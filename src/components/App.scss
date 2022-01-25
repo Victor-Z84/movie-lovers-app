@@ -1,6 +1,8 @@
 .app {
-    position: relative;
     background-color: #183755;
     height: 100vh;
-    z-index: 1;
+    .app-main {
+        background-color: #183755;
+    }
 }
+    

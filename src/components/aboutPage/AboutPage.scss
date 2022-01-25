@@ -1,0 +1,29 @@
+.about-page {
+    max-width: 1200px;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 6rem 1rem 6rem;
+    color: white;
+    text-align: center;
+
+    h1 {
+        span {
+            font-weight: bold;
+            color: #b7b7ff;
+        }
+    }
+
+    .about-page__picture {
+        display: flex;
+        justify-content: center;
+        
+    } img {
+        max-height: 180px;
+        width: auto;
+    }
+
+    p {
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+}

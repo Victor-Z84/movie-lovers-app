@@ -3,7 +3,7 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    min-width: 85vw;
+    width: 300px;
     max-height: 65vh;
     padding: 10px;
     box-sizing: border-box;
@@ -57,6 +57,11 @@
                 height: 100%;
             }
         }
+        .movie-info-card__error {
+            font-size: 1rem;
+            color: red;
+            text-align: center;
+        }
         .movie-info-card__info {
             margin-top: 8px;
             height: 25vh;
@@ -71,13 +76,5 @@
                 }
             }
         }
-    }
-    .movie-info-card__fav-btn {
-        color: black;
-
-        .movie-info-card__fav-icon {
-            color: red;
-        }
-    }
-    
+    } 
 }

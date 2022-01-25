@@ -4,17 +4,14 @@ import MovieCard from '../movieCard/MovieCard';
 import Loader from '../loader/Loader';
 import MovieInfoCard from '../movieInfoCard/MovieInfoCard';
 import MoviePagination from '../pagination/MoviePagination';
+import AddFavourites from '../movieInfoCard/addFavourites/AddFavourites';
 
 import "./MoviePage.scss";
 import axios from 'axios';
-
-
 export const API_KEY = 'e6f72b18';
 
-function MoviePage() {
 
-  // состояние для строки ввода данных
-  const [searchValue, setSearchValue] = useState("");  
+function MoviePage() {
 
   // состояние для страницы с фильмами
   const [movies, setMovies] = useState([
@@ -24,13 +21,6 @@ function MoviePage() {
       "imdbID": "tt8367814",
       "Type": "movie",
       "Poster": "https://m.media-amazon.com/images/M/MV5BMTlkMmVmYjktYTc2NC00ZGZjLWEyOWUtMjc2MDMwMjQwOTA5XkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_SX300.jpg"
-    },
-    {
-      "Title": "Knockin' on Heaven's Door",
-      "Year": "1997",
-      "imdbID": "tt0119472",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BMTk2MjcxNjMzN15BMl5BanBnXkFtZTgwMTE3OTEwNjE@._V1_SX300.jpg"
     },
     {
       "Title": "Bohemian Rhapsody",
@@ -48,12 +38,17 @@ function MoviePage() {
     },
   ]);
 
+  // состояние для строки ввода данных
+  const [searchValue, setSearchValue] = useState("");
+  
+  // состояние для избранных фильмов
+  const [favourites, setFavourites] = useState([]);
+
   //состояние для Loader
   const [isLoading, setIsLoading] = useState(true);
 
   //состояние для Error
   const [isError, setIsError] = useState(false);
-
 
   //состояние для компонента MoviePagination
   const [page, setPage] = useState(1);
@@ -64,45 +59,36 @@ function MoviePage() {
   // состояния для модального окна с подробной информацией
   const [selectedMovie, onMovieSelect] = useState();
 
-  // это рабочий код получение запросов динамически, нативным способом:
-  const getMovieRequest = async (searchValue) => {
-    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}&page=${page}`;
-
-    const response = await fetch(url);
-    const responseJson = await response.json();
-
-    if (responseJson.Search) {
-      setMovies(responseJson.Search);
-      setNumberOfPages(Number(responseJson.totalResults));
-    }
-  };
 
   useEffect(() => {
+
+    async function getMovieRequest() {
+
+      try {
+        const getMovies = (searchValue) => axios.get(`https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}&page=${page}`);
+        const response = await getMovies(searchValue);
+        if (!response.data.Error) {
+          setMovies(response.data.Search);
+          setNumberOfPages(Number(response.data.totalResults));
+        } 
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
     getMovieRequest(searchValue, page);
-  });
+  }, [searchValue, page]);
 
+  const saveToLocalStorage = (items) => {
+    localStorage.setItem('favourites-list', JSON.stringify(items));
+  };
 
-
-  // попытка получения данных с API с помощью axios
-
-  // useEffect(() => {
-
-  //   async function getMovieRequest () {
-      
-  //     try {
-  //       const getMovies = (searchValue) => axios.get(`https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}&page=${page}`);
-  //       const response = await getMovies(); 
-  //       const responseJson = await response.json();
-  //       setMovies(responseJson.Search);
-  //       setNumberOfPages(Number(responseJson.totalResults));
-  //     } catch (error) {
-  //       setIsError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  //   getMovieRequest(searchValue, page);
-  // }, [searchValue, page]);
+  const addFavouriteMovie = (movie) => {
+    const newFavouriteList = [...favourites, movie];
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+  };
 
   return (
     <>
@@ -110,8 +96,8 @@ function MoviePage() {
     
         <div className='search-form'>
           <SearchBox
-            searchValue={searchValue}
-            setSearchValue={setSearchValue} 
+            serchValue={setSearchValue} 
+            setSearchValue = {setSearchValue}
           />
         </div>
 
@@ -121,9 +107,7 @@ function MoviePage() {
         
         <div className="movie-list">
 
-          {/* это НЕрабочий, попытка с axios */}
-
-          {/* {isLoading && <Loader/>}
+          {isLoading && <Loader/>}
           {isError && 
             <span className='movie-page__error'>
               Error :-(
@@ -131,20 +115,20 @@ function MoviePage() {
           }
           {!isLoading && !isError && 
             movies.map((movie) => 
-                  <MovieCard key={movie.imdbID} movie={movie} onMovieSelect={onMovieSelect}/>
+                  <MovieCard 
+                  key={movie.imdbID} 
+                  movie={movie} 
+                  onMovieSelect={onMovieSelect}
+                  favouriteComponent={AddFavourites}
+                  handleFavouritesClick={addFavouriteMovie}
+                  />
                 )
-          } */}
-
-
-          {/* это рабочий код с нативным запросом данных с API */}
-          {movies?.map((movie) => 
-            <MovieCard key={movie.imdbID} movie={movie} onMovieSelect={onMovieSelect}/>
-          )}
+          }
         </div>
-
         {selectedMovie && <MovieInfoCard 
           selectedMovie={selectedMovie}
           onMovieSelect={onMovieSelect}
+  
         />}
       </div>
       <MoviePagination
