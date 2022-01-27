@@ -15,19 +15,44 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { NavLink } from "react-router-dom";
 
+import './DrawerMenu.scss';
 
 const useStyles = makeStyles({
     list: {
         width: 250
-    }
+    },
 })
+
+const links = [
+    {
+        textId: "Main Page",
+        url: "/main-page",
+        icon: <HomeIcon/>
+    },
+    {
+        textId: "Favourites",
+        url: "/favourites",
+        icon: <StarOutlineIcon/>
+    },
+    {
+        textId: "Packages",
+        url: "/packages",
+        icon: <StorefrontIcon/>
+    },
+    {
+        textId: "About",
+        url: "/about",
+        icon: <ReadMoreIcon/>
+    },
+]
 
 function DrawerMenu () {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     return (
-        <div>
+        <div className="drawer-menu">
             <IconButton 
                 edge="start"
                 color="inherit"
@@ -52,23 +77,15 @@ function DrawerMenu () {
                     </Box>
                     <Divider/>
                     <List>
-                        <ListItem button onClick={() => {}}>
-                            <ListItemIcon><HomeIcon/></ListItemIcon>
-                            <ListItemText primary={'Main page'}></ListItemText>
-                        </ListItem>
-                        <ListItem button onClick={() => {}}>
-                            <ListItemIcon><StarOutlineIcon/></ListItemIcon>
-                            <ListItemText primary={'Favorites'}></ListItemText>
-                        </ListItem>
-                        <ListItem button onClick={() => {}}>
-                            <ListItemIcon><StorefrontIcon/></ListItemIcon>
-                            <ListItemText primary={'Packages'}></ListItemText>
-                        </ListItem>
-                        <ListItem button onClick={() => {}}>
-                            <ListItemIcon><ReadMoreIcon/></ListItemIcon>
-                            <ListItemText primary={'About'}></ListItemText>
-                        </ListItem>
-                        <ListItem button onClick={() => {}}>
+                        {links.map((link, index) => (
+                            <NavLink className="nav-link"key={index} to={link.url}>
+                                <ListItem className="nav-btn" button onClick={() => setOpen(false) }>
+                                    <ListItemIcon>{link.icon}</ListItemIcon>
+                                    <ListItemText primary={link.textId}></ListItemText>
+                                </ListItem>
+                            </NavLink>
+                        ))}
+                         <ListItem>
                             <ListItemIcon><SettingsIcon/></ListItemIcon>
                             <ListItemText primary={'Settings'}></ListItemText>
                         </ListItem>

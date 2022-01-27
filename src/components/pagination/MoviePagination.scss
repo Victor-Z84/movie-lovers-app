@@ -1,16 +1,20 @@
 .movie-pag-container {
     display:flex;
     justify-content: center;
-    
-
-    .movie-pag-container__root{
-        position: fixed;
+    position: fixed;
         bottom: 0;
         z-index: 15;
+        width: 100%;
+        
+
+    .movie-pag-container__root{
+        
         background-color: #183755;
-        padding: 10px 80px;
+        padding: 10px 10px;
         border-top: 1px solid white;
         width: 100%;
+    
+        
 
         li {
             // border: 1px solid rgb(255 255 255 / 23%);

@@ -1,0 +1,22 @@
+.packages-order-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 1.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #c3c3c3;
+    
+
+    // display: flex;
+    // justify-content: center;
+    background-color: white;
+    .packages-order-form__name {
+        margin-top: 1.5rem;
+    }
+    .text-field-data {
+        margin-bottom: 1.5rem;
+    }
+    .packages-order-form__button {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

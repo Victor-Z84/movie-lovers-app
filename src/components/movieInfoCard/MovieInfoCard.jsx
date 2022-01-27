@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { API_KEY } from '../moviePage/MoviePage';
-import Button from '@mui/material/Button';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Loader from '../loader/Loader';
 
 import "./MovieInfoCard.scss";
 
@@ -12,16 +11,34 @@ const MovieInfoCard = (props) => {
     const [movieInfo, setMovieInfo] = useState();
     const { selectedMovie } = props;
 
+    //состояние для Loader
+    const [isLoading, setIsLoading] = useState(true);
+
+    //состояние для Error
+    const [isError, setIsError] = useState(false);
+
     useEffect(() => {
-        axios.get(
-            `https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`,
-        ).then((response) => setMovieInfo(response.data));
+        async function getMovieInfo () {
+            try {
+                const getInfo = (selectedMovie) =>
+                axios.get(`https://www.omdbapi.com/?i=${selectedMovie}&apikey=${API_KEY}`);
+                const response = await getInfo(selectedMovie);
+                if (!response.data.Error) {
+                    setMovieInfo(response.data)
+                }
+            } catch (error) {
+                setIsError(true);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        getMovieInfo(selectedMovie);
     }, [selectedMovie]);
- 
 
     return(
 
         <div className="movie-info-card">
+            
             <div className="movie-info-card__title">
                 <div className="movie-info-card__name">{movieInfo?.Title}</div>
                 <div className="movie-info-card__btn" onClick={() => props.onMovieSelect()}>
@@ -32,6 +49,12 @@ const MovieInfoCard = (props) => {
                 <div className="movie-info-card__poster">
                     <img className="movie-info-card__img" src={movieInfo?.Poster} alt={movieInfo?.Title}/>
                 </div>
+                {isLoading && <Loader/>}
+                {isError && 
+                    <span className='movie-info-card__error'>
+                        Error :-(
+                    </span>
+                }
                 <div className="movie-info-card__info">
                     <p>Type: <span>{movieInfo?.Type}</span></p>
                     <p>IMBD Rating: <span>{movieInfo?.imdbRating}</span></p>
@@ -46,16 +69,6 @@ const MovieInfoCard = (props) => {
                     <p>Plot: <span>{movieInfo?.Plot}</span></p>
                 </div>
             </div>
-            {/* <div className="movie-info-card__fav-btn">
-                <Button 
-                    onClick={() => console.log('Добавлено в избранное!')}
-                    variant="outlined"
-                    color="error"
-                    fullWidth="true"
-                >
-                    <FavoriteIcon className="movie-info-card__fav-icon"/>
-                </Button>
-            </div> */}
         </div>
     );
 };
