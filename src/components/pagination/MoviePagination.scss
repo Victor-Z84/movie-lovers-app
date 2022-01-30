@@ -6,30 +6,24 @@
         z-index: 15;
         width: 100%;
         
-
     .movie-pag-container__root{
         
-        background-color: #183755;
+        background-color: var(--background);
         padding: 10px 10px;
-        border-top: 1px solid white;
+        border-top: 1px solid var(--border-header);
         width: 100%;
-    
-        
 
         li {
-            // border: 1px solid rgb(255 255 255 / 23%);
             button {
-                color: rgb(255 255 255 / 87%);
+                border: 1px solid var(--border-pug-btn);
+                
+                color: var(--border-pug-btn);
             }
-            
         }
 
         .movie-pag__pag-element {
             display: flex;
             justify-content: center;
-            .MuiPagination-text {
-                color: white;
-            }
         }
     }
 }

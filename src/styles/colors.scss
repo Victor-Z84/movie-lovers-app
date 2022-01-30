@@ -1,0 +1,24 @@
+
+[data-theme="light"] {
+    --background: #FAFAFA;
+    --border-pug-btn:#183755;
+    --background-form: #FAFAFA;
+    --border-header: #183755;
+    --border-form: #C3C3C3;
+    --text-span: #7070f8;
+    --text: #183755;
+}
+
+[data-theme="dark"] {
+    --background: #183755;
+    --border-pug-btn: #C3C3C3;
+    --background-form: #FAFAFA;
+    --border-header: #FAFAFA;
+    --border-form: #C3C3C3;
+    --text-span: #7070f8;
+    --text: #FAFAFA;
+}
+
+[data-theme] {
+    --danger: red;
+}

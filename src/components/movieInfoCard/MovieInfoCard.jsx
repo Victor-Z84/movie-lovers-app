@@ -37,8 +37,9 @@ const MovieInfoCard = (props) => {
 
     return(
 
-        <div className="movie-info-card">
-            
+        <div className="movie-info-modal">
+            <div className="movie-info-background" onClick={() => props.onMovieSelect()}></div>
+            <div className="movie-info-card">
             <div className="movie-info-card__title">
                 <div className="movie-info-card__name">{movieInfo?.Title}</div>
                 <div className="movie-info-card__btn" onClick={() => props.onMovieSelect()}>
@@ -68,6 +69,7 @@ const MovieInfoCard = (props) => {
                     <p>Actors: <span>{movieInfo?.Actors}</span></p>
                     <p>Plot: <span>{movieInfo?.Plot}</span></p>
                 </div>
+            </div>
             </div>
         </div>
     );

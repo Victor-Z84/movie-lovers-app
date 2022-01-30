@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { withTranslator } from '../../hoc/withTranslator';
 import SearchBox from '../searchBox/SearchBox';
 import MovieCard from '../movieCard/MovieCard';
 import Loader from '../loader/Loader';
 import MovieInfoCard from '../movieInfoCard/MovieInfoCard';
 import MoviePagination from '../pagination/MoviePagination';
-import AddFavourites from '../movieInfoCard/addFavourites/AddFavourites';
+import AddFavourites from '../movieCard/addFavourites/AddFavourites';
+import RemoveFavourites from '../movieCard/removeFavourites/RemoveFavourites';
 
 import "./MoviePage.scss";
 import axios from 'axios';
 export const API_KEY = 'e6f72b18';
 
 
-function MoviePage() {
+function MoviePage( { translate } ) {
 
   // состояние для страницы с фильмами
   const [movies, setMovies] = useState([
@@ -90,6 +92,12 @@ function MoviePage() {
     saveToLocalStorage(newFavouriteList);
   };
 
+  const removeFavouriteMovie = (movie) => {
+    const newFavouriteList = favourites.filter((favourite) => favourite.imdbID !== movie.imdbID);
+    setFavourites(newFavouriteList);
+    saveToLocalStorage(newFavouriteList);
+  }
+
   return (
     <>
       <div className="movie-page">
@@ -102,7 +110,7 @@ function MoviePage() {
         </div>
 
         <div className="movie-page__invation">
-          <span>...or see our collection</span>
+          <span>{translate("movie.page.span")}</span>
         </div>
         
         <div className="movie-list">
@@ -119,8 +127,13 @@ function MoviePage() {
                   key={movie.imdbID} 
                   movie={movie} 
                   onMovieSelect={onMovieSelect}
+                  
                   favouriteComponent={AddFavourites}
                   handleFavouritesClick={addFavouriteMovie}
+                  
+
+                  removeComponent={RemoveFavourites}
+                  handleRemoveClick={removeFavouriteMovie}
                   />
                 )
           }
@@ -140,4 +153,4 @@ function MoviePage() {
   );
 }
 
-export default MoviePage;
+export default withTranslator(MoviePage);

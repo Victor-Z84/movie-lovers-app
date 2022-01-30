@@ -1,5 +1,6 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
+import { withTranslator } from "../../hoc/withTranslator";
+import { withTheme } from "../../hoc/withTheme"
 import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
@@ -15,7 +16,12 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import SettingsIcon from '@mui/icons-material/Settings';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { NavLink } from "react-router-dom";
+import { Button, ButtonGroup } from "@mui/material";
 
 import './DrawerMenu.scss';
 
@@ -27,28 +33,28 @@ const useStyles = makeStyles({
 
 const links = [
     {
-        textId: "Main Page",
+        textId: "menu.links.main",
         url: "/main-page",
         icon: <HomeIcon/>
     },
     {
-        textId: "Favourites",
+        textId: "menu.links.favourites",
         url: "/favourites",
         icon: <StarOutlineIcon/>
     },
     {
-        textId: "Packages",
+        textId: "menu.links.packages",
         url: "/packages",
         icon: <StorefrontIcon/>
     },
     {
-        textId: "About",
+        textId: "menu.links.about",
         url: "/about",
         icon: <ReadMoreIcon/>
     },
 ]
 
-function DrawerMenu () {
+function DrawerMenu ( { translate, ...props } ) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     return (
@@ -73,21 +79,46 @@ function DrawerMenu () {
                         textAlign="center"
                         padding={2}
                     >
-                        Menu
+                        {translate("menu.menu")} 
+                        
                     </Box>
                     <Divider/>
-                    <List>
+                    <List className="drawer-menu__list">
                         {links.map((link, index) => (
-                            <NavLink className="nav-link"key={index} to={link.url}>
-                                <ListItem className="nav-btn" button onClick={() => setOpen(false) }>
+                            <NavLink className="drawer-menu__link"key={index} to={link.url} style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.64)' }}>
+                                <ListItem className="drawer-menu__btn" button onClick={() => setOpen(false) }>
                                     <ListItemIcon>{link.icon}</ListItemIcon>
-                                    <ListItemText primary={link.textId}></ListItemText>
+                                    <ListItemText primary={translate(link.textId)}></ListItemText>
                                 </ListItem>
                             </NavLink>
                         ))}
+                        <Divider/>
                          <ListItem>
                             <ListItemIcon><SettingsIcon/></ListItemIcon>
-                            <ListItemText primary={'Settings'}></ListItemText>
+                            <ListItemText primary={translate('menu.links.settings')} style={{ color: 'rgba(0, 0, 0, 0.64)' }}></ListItemText>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon><GTranslateIcon/></ListItemIcon>
+                            <ListItemText primary={translate('menu.links.language')} style={{ color: 'rgba(0, 0, 0, 0.64)' }}></ListItemText>
+                            <ButtonGroup size="small" variant="outlined" style={{ color: 'rgba(0, 0, 0, 0.64)' }} aria-label="outlined primary button group">
+                                <Button style={{ color: 'rgba(0, 0, 0, 0.64)' }} onClick={() => props.setLanguage("ru")}>
+                                    RU
+                                </Button>
+                                <Button style={{ color: 'rgba(0, 0, 0, 0.64)' }} onClick={() => props.setLanguage("en")}>
+                                    EN
+                                </Button>
+                            </ButtonGroup>
+                        </ListItem>
+                        <ListItem className="nav-link-theme">
+                            <ListItemIcon><SettingsBrightnessIcon/></ListItemIcon>
+                            <ListItemText primary={translate("menu.links.theme")} style={{ color: 'rgba(0, 0, 0, 0.64)' }}></ListItemText>
+                            <Button onClick={() => props.toggleTheme()}
+                                size="small"
+                                variant="outlined"
+                                color="primary"
+                            >
+                                <NightlightRoundIcon style={{ color: 'rgba(0, 0, 0, 0.54)' }} />|<LightModeIcon style={{ color: 'rgba(0, 0, 0, 0.54)' }} />
+                            </Button>
                         </ListItem>
                     </List>
                 </div>
@@ -97,4 +128,4 @@ function DrawerMenu () {
     )
 }
 
-export default DrawerMenu;
+export default withTheme(withTranslator(DrawerMenu));

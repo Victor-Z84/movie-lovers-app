@@ -1,8 +1,11 @@
+@import "../styles/colors.scss";
+@import "../styles/global.scss";
+
 .app {
-    background-color: #183755;
+    background-color: var(--background);
     height: 100vh;
     .app-main {
-        background-color: #183755;
+        background-color: var(--background);
     }
 }
     

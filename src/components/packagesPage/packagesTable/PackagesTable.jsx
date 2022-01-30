@@ -1,5 +1,5 @@
 import React from "react";
-
+import { withTranslator } from "../../../hoc/withTranslator";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,14 +9,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DoneIcon from '@mui/icons-material/Done';
 
-
 import "./PackagesTable.scss";
 
 function createPackages(name, premium, optimal, light) {
     return { name, premium, optimal, light };
 }
 
-function PackagesTable () {
+function PackagesTable ( { translate } ) {
 
     const rows = [
         createPackages('HD quality', <DoneIcon/>, <DoneIcon/>, <DoneIcon/>),
@@ -38,9 +37,9 @@ function PackagesTable () {
                         <TableHead>
                             <TableRow>
                                 <TableCell></TableCell>
-                                <TableCell align="center">PREMIUM</TableCell>
-                                <TableCell align="center">OPTIMAL</TableCell>
-                                <TableCell align="center">LIGHT</TableCell>
+                                <TableCell align="center">{translate("packages.table.premium")}</TableCell>
+                                <TableCell align="center">{translate("packages.table.optimal")}</TableCell>
+                                <TableCell align="center">{translate("packages.table.light")}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -63,4 +62,4 @@ function PackagesTable () {
     );
 }
 
-export default PackagesTable;
+export default withTranslator(PackagesTable);
