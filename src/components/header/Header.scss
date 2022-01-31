@@ -2,9 +2,9 @@
     position: fixed;
     width: 100%;
     z-index: 5;
-    background-color: #183755;
-    color: white;
-    border-bottom: 1px solid white;
+    background-color: var(--background);
+    color: var(--text);
+    border-bottom: 1px solid var(--border-header);
 
     .header-elements {
         padding: 0.5rem 1.5rem;
@@ -17,11 +17,14 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            a {
+                text-decoration: none;
+            }
             .header__menu-btn {
                 margin-right: 1rem;
                 .menu-btn {
-                    border-color: white;
-                    color: white;
+                    border-color: var(--text);
+                    color: var(--text);
                     padding: 0;
                 }
             }
@@ -40,6 +43,7 @@
 
                 div {
                     margin-left: 0.3rem;
+                    color: var(--text);
         
                     display: flex;
                     flex-direction: column;

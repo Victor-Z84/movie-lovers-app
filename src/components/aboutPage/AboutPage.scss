@@ -3,13 +3,13 @@
     margin: auto;
     box-sizing: border-box;
     padding: 6rem 1rem 6rem;
-    color: white;
+    color: var(--text);
     text-align: center;
 
     h1 {
         span {
             font-weight: bold;
-            color: #b7b7ff;
+            color: var(--text-span);
         }
     }
 

@@ -1,11 +1,12 @@
 import React from "react";
-import "./Header.scss";
-
 import DrawerMenu from "../drawerMenu/DrawerMenu";
-import logo from "../../icons/logo.png";
-import ava from "../../icons/ava.jpg"
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 
+import logo from "../../icons/logo.png";
+import ava from "../../icons/ava.jpg"
+
+import "./Header.scss";
 
 
 function Header () {
@@ -17,19 +18,20 @@ function Header () {
                     <div className="header__menu-btn">
                         <DrawerMenu/>
                     </div>
-                    <div className="header__logo">
-                        <img src={logo} alt="logo"/>
-                        <div>
-                            <p>MOVIE</p>
-                            <p>LOVERS</p>
+                    <Link to="/main-page">
+                        <div className="header__logo">
+                            <img src={logo} alt="logo"/>
+                            <div>
+                                <p>MOVIE</p>
+                                <p>LOVERS</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
-            
                 <div className="header__right-part">
-                    <div className="header__login">
+                    {/* <div className="header__login">
                         LOGOUT
-                    </div>
+                    </div> */}
                     <div className="header__avatar">
                         <Avatar 
                             alt="Cindy Baker" 

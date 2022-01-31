@@ -1,7 +1,9 @@
 .drawer-menu {
-    
-    div li a {
-        color: rgba(0, 0, 0, 0.54);
-        text-decoration: none;
+
+    .drawer-menu__list {
+        .drawer-menu__link {
+            color: rgba(0, 0, 0, 0.54);
+            text-decoration: none;
+        }
     }
 } 

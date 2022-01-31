@@ -1,9 +1,10 @@
 import React from "react";
+import { withTranslator } from '../../../hoc/withTranslator';
 import Button from '@mui/material/Button';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import "./AddFavourites.scss";
 
-const AddFavourites = () => {
+const AddFavourites = ( { translate } ) => {
     return (
         <>
             <div className="add-favourites">
@@ -12,7 +13,7 @@ const AddFavourites = () => {
                     color="error"
                     fullWidth
                 >
-                    <span className="add-favourites__text">Add to Favourites</span>
+                    <span className="add-favourites__text">{translate("movie.card.btn.add")}</span>
                     <FavoriteIcon className="add-favourites__icon"/>
                 </Button>
             </div>
@@ -20,4 +21,4 @@ const AddFavourites = () => {
     )
 }
 
-export default AddFavourites;
+export default withTranslator(AddFavourites);

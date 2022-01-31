@@ -1,15 +1,16 @@
 import React from "react";
+import { withTranslator } from '../../hoc/withTranslator';
 import TextField from '@mui/material/TextField';
 
 
-const SearchBox = (props) => {
+const SearchBox = ({ translate, ...props }) => {
 
     return (
         <div className="search-form" >
             <TextField
                 noValidate 
                 autoComplete="off"
-                label="Start your search here..."
+                label={translate("search.box.label")}
                 variant="outlined"
                 fullWidth
                 value={props.value}
@@ -19,4 +20,4 @@ const SearchBox = (props) => {
     )
 }
 
-export default SearchBox;
+export default withTranslator(SearchBox);

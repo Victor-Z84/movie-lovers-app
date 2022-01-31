@@ -5,19 +5,19 @@
     position: relative;
     padding: 6rem 1rem 6rem;
     z-index: 2;
-    background-color: #183755;
+    background-color: var(--background);
 
     .search-form {
         margin: auto;
         max-width: 800px;
         padding: 0.3rem;
         border-radius: 0.5rem;
-        background-color: white;
+        background-color: var(--background-form);
         
     }
 
     .movie-page__invation {
-        color: white;
+        color: var(--text);
         font-size: 1rem;
         display: flex;
         justify-content: center;
@@ -32,12 +32,12 @@
         justify-content: space-evenly;
 
         .movie-page__error {
-            color: white;
+            color: var(--text);
         }
     }
     .fafourites-movie {
         p {
-            color: white;
+            color: var(--text);
         }
     }
 }

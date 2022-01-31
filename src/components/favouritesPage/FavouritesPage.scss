@@ -2,7 +2,18 @@
     max-width: 1200px;
     margin: auto;
     box-sizing: border-box;
+    position: relative;
     padding: 6rem 1rem 6rem;
-    color: white;
+    color: var(--text);
     text-align: center;
+    background-color: var(--background);
+    .favourites-page__title {
+        margin-bottom: 2rem;
+    }
+    .favourites-movie-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
 }

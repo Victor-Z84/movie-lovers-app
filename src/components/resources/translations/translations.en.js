@@ -1,0 +1,46 @@
+export const enTranslation = {
+    "movie.page.span": "...or see our collection",
+    "movie.card.btn.add": "Add to Favourites",
+    "movie.card.btn.remove": "Remove from Favourites",
+
+    "favourite.page.title": "Your collection of favourites films and series",
+
+    "search.box.label": "Start your search here...",
+
+    "menu.menu": "Menu",
+    "menu.links.main": "Home",
+    "menu.links.favourites": "Favourites",
+    "menu.links.packages": "Packages",
+    "menu.links.about": "About",
+    "menu.links.settings": "Settings",
+    "menu.links.language": "Language",
+    "menu.links.theme": "Theme",
+
+    "packages.page.text": "We can offer you the following paid packages:",
+    "packages.page.invitation": "To place an order, please use the special form below:",
+
+    "packages.table.premium": "PREMIUM",
+    "packages.table.optimal": "OPTIMAL",
+    "packages.table.light": "LIGHT",
+    "packages.form.invitation": "You can make your order here:",
+    "packages.form.name": "Name Surname",
+    "packages.form.notes": "Additional Notes",
+    "packages.form.select": "Please select a service package:",
+    "packages.form.submit": "Submit",
+    "packages.form.alert": "Your order has been successfully sent!",
+
+    "about.title.1": "Welcome to the ",
+    "about.title.2": " page!",
+    "about.title.span": "Movie Lovers",
+    "about.p.1": "This application was developed by student Victor Zdvizhkov using the React library as a final graduation project at the TeachMeSkills programming school.",
+    "about.p.2": "Movie Lovers will help you to find movies and series data (year of release, country of production, director, actors, etc.) by title or part of the title, which you can enter in the search bar on the 'Home' page.",
+    "about.p.3": "As the main idea and data source of movies for the full functioning of this application was used a free RESTful web service of the open database of films and series OMDb API.",
+    "about.p.4": "The Movie Lovers application has the following functional pages: 'Home', 'Favourites', 'Packages', and this 'About' page with a description of the application.",
+    "about.p.5": "On the 'Home' page you will find a search bar. This search bar will help you find movies or series that interest you. On each of the resulting pages, you will find up to 10 search results. The next 10 search results can be accessed using the pagination buttons at the bottom of the page.",
+    "about.p.6": "By clicking on the poster in the movie card, you can get more detailed information about the selected movie.",
+    "about.p.7": "To add a movie to 'Favourites', click on the 'Add to Favourites' button at the bottom of the card with the movie.",
+    "about.p.8": "On the 'Favourites' page you will find the results of your search queries added from the 'Home' page. They will be stored in your local storage and will not disappear from here even if you refresh the page. You can remove from 'Favourites' by pressing the special button 'Remove from Favourites'.",
+    "about.p.9": "The 'Packages' page contains tables with options for paid services. At the bottom of the page you will find a form for submitting user data. This form implements functionality for the mandatory filling of some input fields and the selection of check boxes.",
+    "about.p.10": "For more comfortable using of the Movie Lovers application, it has the ability to change languages (Russian or English) and themes (dark or light), which can be changed in the 'Settings' of the 'Menu'.",
+    "about.p.11": "Enjoy!",
+}

@@ -1,0 +1,11 @@
+.remove-favourites {
+    display: flex;
+    margin: auto;
+    .remove-favourites__btn {
+        .remove-favourites__text {
+            font-size: 10px;
+            padding-right: 0.5rem;
+            padding-top: 0.2rem;
+        }
+    }
+}

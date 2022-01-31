@@ -1,20 +1,19 @@
 import React from "react";
+import { withTranslator } from "../../hoc/withTranslator"; 
 
 import PackagesTable from "./packagesTable/PackagesTable";
 import OrderForm from "./orderForm/OrderForm";
 
 import "./PackagesPage.scss";
 
-
-
-function PackagesPage () {
+function PackagesPage ( { translate } ) {
 
     return (
         <>
             <div className="packages-page">
-                <h3 className="packages-page__text">We can offer you the following paid packages:</h3>
+                <h3 className="packages-page__text">{translate("packages.page.text")}</h3>
                 <PackagesTable/>
-                <h4 className="packages-page__invitation">To place an order, please use the special form below:</h4>
+                <h4 className="packages-page__invitation">{translate("packages.page.invitation")}</h4>
                 <OrderForm/>
             </div>
 
@@ -22,4 +21,4 @@ function PackagesPage () {
     );
 }
 
-export default PackagesPage;
+export default withTranslator(PackagesPage);
